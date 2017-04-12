@@ -11,34 +11,22 @@
 ### Internal
 
 
-## 3.1.2 (YYYY-MM-DD)
-
-### Deprecated
-
-### Enhancements
+## 3.1.2 (2017-04-12)
 
 ### Bug Fixes
 
 * Crash caused by JNI couldn't find `OsObject.notifyChangeListeners` when ProGuard is enabled (#4461).
 * Incompatible return type of `RealmSchema.getAll()` and `BaseRealm.getSchema()` (#4443).
-
-### Internal
-
+* Memory leaked when synced Realm was initialized (#4465).
+* An `IllegalStateException` will be thrown when starting iterating `OrderedRealmCollection` if the Realm is closed (#4471).
 
 ## 3.1.1 (2017-04-07)
-
-### Deprecated
-
-### Enhancements
 
 ### Bug Fixes
 
 * Crash caused by Listeners on `RealmObject` getting triggered the 2nd time with different changed field (#4437).
 * Unintentionally exposing `StandardRealmSchema` (#4443).
 * Workaround for crashes on specific Samsung devices which are caused by a buggy `memmove` call (#3651).
-
-### Internal
-
 
 ## 3.1.0 (2017-04-05)
 
