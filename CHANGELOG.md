@@ -1,12 +1,27 @@
-## 3.3.0
+## 3.4.0 (YYYY-MM-DD)
+
+### Breaking Changes
+
+### Enhancements
+
+### Bug Fixes
+
+### Internal
+
+
+## 3.3.0 (2017-05-24)
 
 ### Enhancements
 
 * [ObjectServer] Added two options to `SyncConfiguration` to provide a trusted root CA `trustedRootCA` and to disable SSL validation `disableSSLVerification` (#4371).
+* [ObjectServer] Added support for changing passwords through `SyncUser.changePassword()` using an admin user (#4588).
+
+### Bug Fixes
+
+* Queries on proguarded Realm model classes, failed with "Table not found" (#4673).
+
 
 ## 3.2.1 (2017-05-19)
-
-### Deprecated
 
 ### Enhancements
 
