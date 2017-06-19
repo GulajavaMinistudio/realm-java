@@ -16,6 +16,10 @@
 * Upgraded to Realm Sync 1.9.1
 * Upgraded to Realm Core 2.8.0
 
+### Credits
+
+* Thanks to Anis Ben Nsir (@abennsir) for upgrading Roboelectric in the unitTestExample (#4698).
+
 ## 3.3.3 (YYYY-MM-DD)
 
 ### Breaking Changes
@@ -25,6 +29,7 @@
 ### Bug Fixes
 
 * When converting nullable BLOB field to required, `null` values should be converted to `byte[0]` instead of `byte[1]`.
+* Fixed a bug which may cause duplicated primary key values when migrating a nullable primary key field to not nullable. `RealmObjectSchema.setRequired()` and `RealmObjectSchema.setNullable()` will throw when converting a nullable primary key field with null values stored to a required primary key field.
 
 ### Internal
 
