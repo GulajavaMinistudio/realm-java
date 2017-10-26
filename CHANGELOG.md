@@ -20,8 +20,10 @@
 ### Bug Fixes
 
 * Fixed the compile warnings of using deprecated method `RealmProxyMediator.getTableName()` in generated mediator classes (#5455).
+* [ObjectServer] now retrying network query when encountering any `IOException` (#5453).
+* Fixed a `NoClassDefFoundError` due to using `@SafeVarargs` below API 19 (#5463).
 
-### Interal
+### Internal
 
 * Updated Realm Sync to 2.1.0
 
