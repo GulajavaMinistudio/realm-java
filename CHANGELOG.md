@@ -1,4 +1,4 @@
-## 4.2.0 (YYYY-MM-DD)
+## 4.2.0 (2017-11-17)
 
 ### Breaking Changes
 
@@ -6,26 +6,23 @@
 
 * Added support for using non-encrypted Realms in multiple processes. Some caveats apply. Read [doc](https://realm.io/docs/java/latest/#multiprocess) for more info (#1091).
 * Added support for importing primitive lists from JSON (#5362).
-
-### Bug Fixes
-
-### Interal
-
-### Credits
-
-
-## 4.1.2 (YYYY-MM-DD)
+* [ObjectServer] Support SSL validation using Android TrustManager (no need to specify `trustedRootCA` in `SynConfiguration` if the certificate is installed on the device), fixes (#4759).
+* Added the and() function to `RealmQuery` in order to improve readability.
 
 ### Bug Fixes
 
 * Leaked file handler in the Realm Transformer (#5521).
 * Potential fix for "RealmError: Incompatible lock file" crash (#2459).
 
-### Internal
+### Interal
 
 * Updated JavaAssist to 3.22.0-GA.
 * Upgraded to Realm Sync 2.1.4.
 * Upgraded to Realm Core 4.0.3.
+
+### Credits
+
+Thanks to @rakshithravi1997 for adding `RealmQuery.and()` (#5520).
 
 
 ## 4.1.1 (2017-10-27)
