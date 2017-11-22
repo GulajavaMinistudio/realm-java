@@ -1,6 +1,21 @@
-## 4.2.0 (2017-11-17)
+## 4.2.1 (YYYY-MM-DD)
 
-### Breaking Changes
+### Enhancements
+
+### Bug Fixes
+
+* Added missing `toString()` for the implementation of `OrderedCollectionChangeSet`.
+
+### Internal
+
+* Use `OsList` instead of `OsResults` to add notification token on for `RealmList<RealmModel>`.
+
+### Credits
+
+* Thanks to @tbsandee for fixing a typo (#5548).
+
+
+## 4.2.0 (2017-11-17)
 
 ### Enhancements
 
@@ -14,7 +29,7 @@
 * Leaked file handler in the Realm Transformer (#5521).
 * Potential fix for "RealmError: Incompatible lock file" crash (#2459).
 
-### Interal
+### Internal
 
 * Updated JavaAssist to 3.22.0-GA.
 * Upgraded to Realm Sync 2.1.4.
@@ -22,7 +37,7 @@
 
 ### Credits
 
-Thanks to @rakshithravi1997 for adding `RealmQuery.and()` (#5520).
+* Thanks to @rakshithravi1997 for adding `RealmQuery.and()` (#5520).
 
 
 ## 4.1.1 (2017-10-27)
@@ -114,7 +129,7 @@ The internal file format has been upgraded. Opening an older Realm will upgrade 
 
 ### Credits
 
-Thanks to @JussiPekonen for adding support for 2-digit time zone designators when importing JSON (#5309).
+* Thanks to @JussiPekonen for adding support for 2-digit time zone designators when importing JSON (#5309).
 
 
 ## 3.7.2 (2017-09-12)
