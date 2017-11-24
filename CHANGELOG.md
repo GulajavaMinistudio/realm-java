@@ -1,3 +1,16 @@
+## 4.3.0 (YYYY-MM-DD)
+
+### Deprecated
+
+* Support for mips devices are deprecated.
+
+### Enhancements
+
+### Bug Fixes
+
+### Internal
+
+
 ## 4.2.1 (YYYY-MM-DD)
 
 ### Enhancements
@@ -5,6 +18,7 @@
 ### Bug Fixes
 
 * Added missing `toString()` for the implementation of `OrderedCollectionChangeSet`.
+* Sync queries are evaluated immediately to solve the performance issue when the query results are huge, `RealmResults.size()` takes too long time (#5387).
 
 ### Internal
 
