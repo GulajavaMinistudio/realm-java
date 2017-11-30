@@ -3,9 +3,13 @@
 ### Deprecated
 
 * Support for mips devices are deprecated.
+* `RealmQuery.findAllSorted()` and `RealmQuery.findAllSortedAsync()` variants in favor of predicate `RealmQuery.sort().findAll()`.
+* `RealmQuery.distinct()` and `RealmQuery.distinctAsync()` variants in favor of predicate `RealmQuery.distinctValues().findAll()`
 
 ### Enhancements
 
+* New query predicate: `sort()`.
+* New query predicate: `distinctValues()`. Will be renamed to `distinct` in next major version.
 * The Realm annotation processor now has a stable output when there are no changes to model classes, improving support for incremental compilers (#5567).
 
 ### Bug Fixes
@@ -25,6 +29,7 @@
 
 * Added missing `toString()` for the implementation of `OrderedCollectionChangeSet`.
 * Sync queries are evaluated immediately to solve the performance issue when the query results are huge, `RealmResults.size()` takes too long time (#5387).
+* Correctly close the Realm instance if an exception was thrown while opening it. This avoids `IllegalStateException` when deleting the Realm in the catch block (#5570).
 
 ### Internal
 

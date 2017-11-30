@@ -110,7 +110,6 @@ import io.realm.objectid.NullPrimaryKey;
 import io.realm.rule.RunInLooperThread;
 import io.realm.rule.RunTestInLooperThread;
 import io.realm.rule.TestRealmConfigurationFactory;
-import io.realm.util.ExceptionHolder;
 import io.realm.util.RealmThread;
 
 import static io.realm.TestHelper.testNoObjectFound;
@@ -3299,7 +3298,7 @@ public class RealmTests {
     @Test
     public void copyFromRealm() {
         populateTestRealm();
-        AllTypes realmObject = realm.where(AllTypes.class).findAllSorted("columnLong").first();
+        AllTypes realmObject = realm.where(AllTypes.class).sort("columnLong").findAll().first();
         AllTypes unmanagedObject = realm.copyFromRealm(realmObject);
         assertArrayEquals(realmObject.getColumnBinary(), unmanagedObject.getColumnBinary());
         assertEquals(realmObject.getColumnString(), unmanagedObject.getColumnString());
@@ -3313,7 +3312,7 @@ public class RealmTests {
     @Test
     public void copyFromRealm_newCopyEachTime() {
         populateTestRealm();
-        AllTypes realmObject = realm.where(AllTypes.class).findAllSorted("columnLong").first();
+        AllTypes realmObject = realm.where(AllTypes.class).sort("columnLong").findAll().first();
         AllTypes unmanagedObject1 = realm.copyFromRealm(realmObject);
         AllTypes unmanagedObject2 = realm.copyFromRealm(realmObject);
         assertFalse(unmanagedObject1 == unmanagedObject2);
@@ -4465,6 +4464,30 @@ public class RealmTests {
             realm = Realm.getInstance(config);
             fail();
         } catch (RealmMigrationNeededException ignored) {
+        }
+    }
+
+    // https://github.com/realm/realm-java/issues/5570
+    @Test
+    public void getInstance_migrationExceptionThrows_migrationBlockDefiend_realmInstancesShouldBeClosed() {
+        RealmConfiguration config = configFactory.createConfigurationBuilder()
+                .name("readonly.realm")
+                .schema(StringOnlyReadOnly.class, AllJavaTypes.class)
+                .schemaVersion(2)
+                .assetFile("readonly.realm")
+                .migration(new RealmMigration() {
+                    @Override
+                    public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
+                    }
+                })
+                .build();
+
+        try {
+            realm = Realm.getInstance(config);
+            fail();
+        } catch (RealmMigrationNeededException ignored) {
+            // No Realm instance should be opened at this time.
+            Realm.deleteRealm(config);
         }
     }
 }
