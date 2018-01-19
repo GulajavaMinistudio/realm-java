@@ -1,10 +1,23 @@
-## 4.3.2 (YYYY-MM-DD)
+## 4.3.3 (2018-01-19)
+
+### Internal
+
+* Downgrade JavaAssist to 3.21.0-GA to fix an issue with a `ClassNotFoundException` at runtime (#5641).
+
+
+## 4.3.2 (2018-01-17)
 
 ### Bug Fixes
 
 * Throws a better exception message when calling `RealmObjectSchema.addField()` with a `RealmModel` class (#3388).
 * Use https for Realm version checker (#4043).
 * Prevent Realms Gradle plugin from transitively forcing specific versions of Google Build Tools onto downstream projects (#5640).
+* [ObjectServer] logging a warning message instead of throwing an exception, when sync report an unknown error code (#5403).
+
+### Enhancements
+
+* [ObjectServer] added support for both Anonymous and Nickname authentication.
+
 
 ### Internal
 
