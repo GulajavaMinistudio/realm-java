@@ -1,8 +1,15 @@
-## 5.3.0 (YYYY-MM-DD)
+## 5.3.0 (2018-06-12)
 
 ### Enhancements
 
+* [ObjectServer] `Realm.compactRealm(config)` now works on synchronized Realms (#5937).
+* [ObjectServer] `SyncConfiguration.compactOnLaunch()` and `SyncConfiguration.compactOnLaunch(callback)` has been added (#5937).
 * Added `RealmQuery.getRealm()`, `RealmResults.getRealm()`, `RealmList.getRealm()` and `OrderedRealmCollectionSnapshot.getRealm()` (#5997).
+
+### Internal
+
+* Upgraded to Realm Core 5.6.0
+* Upgraded to Realm Sync 3.5.2
 
 
 ## 5.2.0 (2018-06-06)
