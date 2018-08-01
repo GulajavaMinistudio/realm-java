@@ -1,3 +1,11 @@
+## 5.4.1 (YYYY-MM-DD)
+
+### Bug Fixes
+
+* Compile time crash if no `targetSdk` was defined in Gradle. This was introduced in 5.4.0 (#6082).
+* Fix Realm Gradle Plugin adding dependencies in a way incompatible with Kotlin Android Extensions. This was introduced in Realm Java 5.4.0 (#6080).
+
+
 ## 5.4.0 (2018-07-22)
 
 ### Enhancements
