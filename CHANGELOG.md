@@ -1,3 +1,25 @@
+## 5.13.1(2019-08-05)
+
+### Enhancements
+* None.
+
+### Fixed
+* [ObjectServer] The C++ networking layer now correctly uses any system defined proxy the same way the Java networking layer does. (Issue [#6574](https://github.com/realm/realm-java/pull/6574)). 
+* The Realm bytecode transformer now works correctly with Android Gradle Plugin 3.6.0-alpha01 and beyond. (Issue [#6531](https://github.com/realm/realm-java/issues/6531)).
+* Queries on RealmLists with objects containing indexed integers could return the wrong result. (Issue [#6522](https://github.com/realm/realm-java/issues/6522), since 5.11.0)
+
+### Compatibility
+* Realm Object Server: 3.21.0 or later.
+* File format: Generates Realms with format v9 (Reads and upgrades all previous formats)
+* APIs are backwards compatible with all previous release of realm-java in the 5.x.y series.
+
+### Internal
+* Updated JavaAssist in the Realm Transformer to 3.25.0-GA.
+* Updated to Realm Core 5.23.1.
+* Updated to Realm Sync 4.7.1.
+* Updated to Object Store commit: bcc6a7524e52071bfcd35cf740f506e0cc6a595e
+
+
 ## 5.13.0(2019-07-23)
 
 ### Enhancements
