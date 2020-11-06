@@ -33,7 +33,7 @@
 #include "java_object_accessor.hpp"
 #include "object.hpp"
 #if REALM_ENABLE_SYNC
-#include "sync/partial_sync.hpp"
+#include "sync/app.hpp"
 #endif
 
 #include "jni_util/java_exception_thrower.hpp"
@@ -140,14 +140,17 @@ void ConvertException(JNIEnv* env, const char* file, int line)
         ThrowException(env, IllegalArgument, e.what());
     }
 #if REALM_ENABLE_SYNC
-    catch (partial_sync::InvalidRealmStateException& e) {
-        ThrowException(env, IllegalState, e.what());
-    }
-    catch (partial_sync::ExistingSubscriptionException& e) {
-        ThrowException(env, IllegalArgument, e.what());
-    }
-    catch (partial_sync::QueryTypeMismatchException& e) {
-        ThrowException(env, IllegalArgument, e.what());
+    catch (realm::app::AppError& e) {
+        // TODO Figure out exactly what kind of mapping is needed here
+        if (e.is_custom_error()) {
+            ThrowException(env, IllegalArgument, e.message);
+        }
+        else if (e.error_code.value() == static_cast<int>(realm::app::ClientErrorCode::user_not_logged_in)) {
+            ThrowException(env, IllegalArgument, e.message);
+        }
+        else {
+            ThrowException(env, IllegalState, e.message);
+        }
     }
 #endif
     catch (std::logic_error e) {
@@ -362,11 +365,29 @@ static string string_to_hex(const string& message, StringData& str, const char* 
     return ret.str();
 }
 
+static string str_to_hex_error_code_to_message(size_t error_code){
+    switch (error_code){
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            return "Not enough output buffer space";
+        case 5:
+            return "Invalid first half of surrogate pair";
+        case 6:
+            return "Incomplete surrogate pair";
+        case 7:
+            return "Invalid second half of surrogate pair";
+        default:
+            return "Unknown";
+    }
+}
+
 static string string_to_hex(const string& message, const jchar* str, size_t size, size_t error_code)
 {
     ostringstream ret;
 
-    ret << message << "; ";
+    ret << message << ": " << str_to_hex_error_code_to_message(error_code) << "; ";
     ret << "error_code = " << error_code << "; ";
     for (size_t i = 0; i < size; ++i) {
         ret << " 0x" << std::hex << std::setfill('0') << std::setw(4) << (int) str[i];
