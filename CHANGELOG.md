@@ -1,3 +1,64 @@
+## 10.4.0 (YYYY-MM-DD)
+
+All releases from 10.4.0 and forward are now found on `mavenCentral()` instead of `jcenter()`. 
+
+A minimal supported setup will therefore now look like this:
+
+```
+allprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+        dependencies {
+            classpath "io.realm:realm-gradle-plugin:10.4.0"
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}
+```
+
+`SNAPSHOT` releases have also been moved from `http://oss.jfrog.org/artifactory/oss-snapshot-local`
+to `https://oss.sonatype.org/content/repositories/snapshots/`. See [here](https://github.com/realm/realm-java/blob/master/README.md#using-snapshots)
+for more information.
+
+### Enhancements
+* Added support for the string-based Realm Query Language through `RealmQuery.rawPredicate(...)`. This allows many new type of queries not previously supported by the typed query API. See the Javadoc on this method for further details. (Issue [#6116](https://github.com/realm/realm-java/pull/6116))
+
+### Fixes
+* None
+
+### Compatibility
+* File format: Generates Realms with format v20. Unsynced Realms will be upgraded from Realm Java 2.0 and later. Synced Realms can only be read and upgraded if created with Realm Java v10.0.0-BETA.1.
+* APIs are backwards compatible with all previous release of realm-java in the 10.x.y series.
+* Realm Studio 10.0.0 or above is required to open Realms created by this version.
+
+### Internal
+* Updated to Realm Core commit: df57de0101b5b817f8f4158cf45e11985cd640c2.
+* Updated to NDK 22.0.7026061.
+* Updated to ReLinker 1.4.3.
+
+## 10.3.1 (2021-01-28)
+
+### Enhancements
+* None.
+
+### Fixes
+* RxJava Flowables/Observables and Coroutine Flows would crash if they were created from a `RealmList` and the parent object holding the list was deleted. Now, the stream is disposed/closed instead. (Issue [#7242](https://github.com/realm/realm-java/issues/7242)) 
+* Fixes Realm models default values containing objects with a PK might crash with a `RealmPrimaryKeyConstraintException`. (Issue [#7269] (https://github.com/realm/realm-java/issues/7269))
+
+### Compatibility
+* File format: Generates Realms with format v20. Unsynced Realms will be upgraded from Realm Java 2.0 and later. Synced Realms can only be read and upgraded if created with Realm Java v10.0.0-BETA.1.
+* APIs are backwards compatible with all previous release of realm-java in the 10.x.y series.
+* Realm Studio 10.0.0 or above is required to open Realms created by this version.
+
+### Internal
+* None.
+
+
 ## 10.3.0 (2021-01-08)
 
 ### Enhancements

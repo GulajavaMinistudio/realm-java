@@ -39,11 +39,12 @@ If you want to test recent bugfixes or features that have not been packaged in a
 ```
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
         maven {
-            url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
+        jcenter()
     }
     dependencies {
         classpath "io.realm:realm-gradle-plugin:<version>-SNAPSHOT"
@@ -52,11 +53,12 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
         maven {
-            url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
+        jcenter()
     }
 }
 ```
@@ -72,7 +74,7 @@ In case you don't want to use the precompiled version, you can build Realm yours
  * Download the [**JDK 8**](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) from Oracle and install it.
  * The latest stable version of Android Studio. Currently [4.1.1](https://developer.android.com/studio/).
  * Download & install the Android SDK **Build-Tools 29.0.3**, **Android Pie (API 29)** (for example through Android Studio’s **Android SDK Manager**).
- * Install CMake version 3.18.2 and build Ninja.
+ * Install CMake version 3.18.4 and build Ninja.
  * Install the NDK (Side-by-side) **21.0.6113669** from the SDK Manager in Android Studio. Remember to check `☑  Show package details` in the manager to display all available versions.
 
  * Add the Android home environment variable to your profile:
