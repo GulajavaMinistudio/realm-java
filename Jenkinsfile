@@ -25,7 +25,7 @@ mongoDbRealmContainer = null
 mongoDbRealmCommandServerContainer = null
 emulatorContainer = null
 dockerNetworkId = UUID.randomUUID().toString()
-currentBranch = env.CHANGE_BRANCH
+currentBranch = (env.CHANGE_BRANCH == null) ? env.BRANCH_NAME : env.CHANGE_BRANCH
 isReleaseBranch = releaseBranches.contains(currentBranch)
 // FIXME: Always used the emulator until we can enable more reliable devices
 // 'android' nodes have android devices attached and 'brix' are physical machines in Copenhagen.
@@ -341,19 +341,22 @@ def runBuild(buildFlags, instrumentationTestTarget) {
 def runPublish() {
   stage('Publish Release') {
     withCredentials([
+            [$class: 'StringBinding', credentialsId: 'maven-central-java-ring-file', variable: 'SIGN_KEY'],
+            [$class: 'StringBinding', credentialsId: 'maven-central-java-ring-file-password', variable: 'SIGN_KEY_PASSWORD'],
             [$class: 'StringBinding', credentialsId: 'slack-webhook-java-ci-channel', variable: 'SLACK_URL_CI'],
             [$class: 'StringBinding', credentialsId: 'slack-webhook-releases-channel', variable: 'SLACK_URL_RELEASE'],
             [$class: 'UsernamePasswordMultiBinding', credentialsId: 'maven-central-credentials', passwordVariable: 'MAVEN_CENTRAL_PASSWORD', usernameVariable: 'MAVEN_CENTRAL_USER'],
             [$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'DOCS_S3_ACCESS_KEY', credentialsId: 'mongodb-realm-docs-s3', secretKeyVariable: 'DOCS_S3_SECRET_KEY'],
             [$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'REALM_S3_ACCESS_KEY', credentialsId: 'realm-s3', secretKeyVariable: 'REALM_S3_SECRET_KEY']
     ]) {
+      // TODO Make sure that buildFlags and signingFlags are unified across builds
       sh """
         set +x
         sh tools/publish_release.sh '$MAVEN_CENTRAL_USER' '$MAVEN_CENTRAL_PASSWORD' \
         '$REALM_S3_ACCESS_KEY' '$REALM_S3_SECRET_KEY' \
         '$DOCS_S3_ACCESS_KEY' '$DOCS_S3_SECRET_KEY' \
-        '$SLACK_URL_RELEASE' \
-        '$SLACK_URL_CI'
+        '$SLACK_URL_RELEASE' '$SLACK_URL_CI' \
+        '-PsignBuild=true -PsignSecretRingFile="${SIGN_KEY}" -PsignPassword=${SIGN_KEY_PASSWORD} -PenableLTO=true -PbuildCore=true'
       """
     }
   }
